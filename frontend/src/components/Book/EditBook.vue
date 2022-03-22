@@ -14,13 +14,13 @@
               <div class="form-group row">
                 <label for="title" class="col-sm-3 col-md-2 col-form-label">Título</label>
                 <div class="col-sm-7 col-md-6">
-                  <input type="text" name="title" placeholder="Título" class="form-control">
+                  <input type="text" name="title" placeholder="Título" class="form-control" v-model.trim="form.title">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="description" class="col-sm-3 col-md-2 col-form-label">Descripción</label>
                 <div class="col-sm-7 col-md-6">
-                  <textarea name="desciption" placeholder="Descripción" rows="3"  class="form-control"></textarea>
+                  <textarea name="desciption" placeholder="Descripción" rows="3"  class="form-control"  v-model.trim="form.description"></textarea>
                 </div>
               </div>
 
@@ -40,6 +40,38 @@
 </template>
 
 <script>
+import axios from 'axios'
+export default {
+  data() {
+    return {
+      bookId: this.$route.params.bookId,
+      form: {
+        title: '',
+        description: ''
+      }
+    }
+  },
+  methods: {
+    onSubmit(e) {
+      e.preventDefault()
+    },
+    getBook() {
+      const path = 'http://127.0.0.1:8000/api/v1.0/books/' + this.bookId + '/'
+
+      axios.get(path)
+        .then((response) => {
+          this.form.title = response.data.title
+          this.form.description = response.data.description
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  },
+  created() {
+    this.getBook()
+  }
+}
 
 </script>
 

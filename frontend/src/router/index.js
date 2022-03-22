@@ -20,7 +20,7 @@ export default new Router({
       component: ListBook
     },
     {
-      path: '/books/edit',
+      path: '/books/:bookId/edit',
       name: 'EditBook',
       component: EditBook
     }
