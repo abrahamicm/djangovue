@@ -3,6 +3,9 @@
     <div class="row">
       <div class="col text-left">
         <h2 class="d-inline-block">Listado de libros</h2>
+          <b-button class="ml-2 mb-2" size="sm" :to="{name: 'NewBook'}" variant="info">
+            Nuevo libro
+          </b-button>
         <div class="col-md-12">
           <b-table class="table" striped hover :items="books" :fields="fields">
 
