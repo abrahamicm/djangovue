@@ -10,7 +10,7 @@
         <div class="card">
           <div class="card-body">
 
-            <form>
+            <form  @submit="onSubmit">
               <div class="form-group row">
                 <label for="title" class="col-sm-3 col-md-2 col-form-label">Título</label>
                 <div class="col-sm-7 col-md-6">
@@ -54,6 +54,18 @@ export default {
   methods: {
     onSubmit(e) {
       e.preventDefault()
+      const path = 'http://127.0.0.1:8000/api/v1.0/books/' + this.bookId + '/'
+
+      axios.put(path, this.form)
+        .then((response) => {
+          this.form.title = response.data.title
+          this.form.description = response.data.description
+
+          alert('Libro actualizado exitosamente')
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
     getBook() {
       const path = 'http://127.0.0.1:8000/api/v1.0/books/' + this.bookId + '/'
